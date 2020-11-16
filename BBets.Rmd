@@ -13,6 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 require(tidyverse)
 require(tidyverse)
 require(knitr)
+require(tigerstats)
 ```
 ### `r as.character(Sys.Date())`
 
@@ -41,14 +42,18 @@ length(unique(bDAYS))
 ```
 
 ```{r}
+results=vector("numeric")
+for(j in 1:1000){
 bank=0
 for(i in 1:637){
-  class=bDAYS=sample(daysYEAR,35,replace = TRUE) 
+  class= sample(daysYEAR,35,replace = TRUE) 
   n=length(unique(class))
   if(n == 35)bank=bank-2
   else bank=bank+1
 }
-print(bank)
+results [j]=bank
+}
+hist(results)
 ```
 
 
@@ -60,10 +65,38 @@ print(bank)
 
 # Profit Estimate
 
+```{r}
+favstats(results)
+```
+the expected amount of money is `r mean(results)
+
+# Confidence interval of Brownlows earning  
+# 95% confidence interval  
+
+```{r}
+results=vector("numeric")
+for(j in 1:1000){
+bank=0
+for(i in 1:637){
+  class= sample(daysYEAR,35,replace = TRUE) 
+  n=length(unique(class))
+  if(n == 35)bank=bank-2
+  else bank=bank+1
+}
+results [j]=bank
+}
+sortRESULTS=sort(results)
+lcl=sortRESULTS[25]
+ucl=sortRESULTS[975]
+```
+lower confidednce limit= `r lcl`  
+upper confidence limit= 'r ucl`  
+
+
 <!--Explain and display the results of your method of coming up with the estimate of professor Brownlows betting profits!-->
 
 
-# Confidence interval of Brownlows earning
+
 
 <!--Explain and display your method of coming up with a 95% confidence interval of  professor Brownlows winnings (or losings)-->
 
